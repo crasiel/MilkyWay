@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+			"-//mybatis.org//DTD Config 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+<mapper namespace="com.itbank.recommend.RecommendDAO">
+
+	<select id="selectOne" resultType="com.itbank.recommend.RecommendDTO" parameterType="com.itbank.recommend.RecommendDTO">
+		select * from recommend
+		<where>
+			nick = #{nick}
+			<if test="board_idx != 0">and board_idx = #{board_idx}</if>
+			<if test="reply_idx != 0">and reply_idx = #{reply_idx}</if>
+			<if test="r_reply_idx != 0">and r_reply_idx = #{r_reply_idx}</if>
+		</where>
+	</select>
+	
+	
+	<insert id="insert" parameterType="com.itbank.recommend.RecommendDTO">
+		insert into recommend
+		<choose>
+			<when test="board_idx != 0">
+				(board_idx,nick) values(#{board_idx},#{nick})
+			</when>
+			<when test="reply_idx != 0">
+				(reply_idx,nick) values(#{reply_idx},#{nick})
+			</when>
+			<when test="r_reply_idx != 0">
+				(r_reply_idx,nick) values(#{r_reply_idx},#{nick})
+			</when>
+		</choose>
+	</insert>
+	
+	<select id="count" parameterType="com.itbank.recommend.RecommendDTO" resultType="int">
+		select count(*) from recommend
+		<where>
+			<if test="board_idx != 0">and board_idx = #{board_idx}</if>
+			<if test="reply_idx != 0">and reply_idx = #{reply_idx}</if>
+			<if test="r_reply_idx != 0">and r_reply_idx = #{r_reply_idx}</if>
+		</where>
+	</select>
+	
+	<delete id="delete" parameterType="com.itbank.recommend.RecommendDTO">
+	delete from recommend
+		<where>
+			nick=#{nick}
+			<if test="board_idx != 0">and board_idx = #{board_idx}</if>
+			<if test="reply_idx != 0">and reply_idx = #{reply_idx}</if>
+			<if test="r_reply_idx != 0">and r_reply_idx = #{r_reply_idx}</if>
+		</where>
+	
+	</delete>
+</mapper>		
