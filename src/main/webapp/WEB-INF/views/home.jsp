@@ -76,6 +76,7 @@
    	  	const target = e.target
    	  	if(!(target.classList.contains('xi-heart-o')||target.classList.contains('xi-heart'))){return;}
 //             target.classList.toggle('red')
+
          if(!target.classList.contains('red')){
             target.classList.remove('xi-heart-o')
             target.classList.add('red','xi-heart')
